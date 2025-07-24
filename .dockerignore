@@ -1,0 +1,12 @@
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+
+# Environment
+.env
+venv/
+__pycache__/
+*.pyc
