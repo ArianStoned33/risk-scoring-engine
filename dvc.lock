@@ -1,0 +1,61 @@
+schema: '2.0'
+stages:
+  process_data:
+    cmd: venv/bin/python src/data/make_dataset.py --input data/01_raw --output 
+      data/03_primary
+    deps:
+    - path: data/01_raw
+      hash: md5
+      md5: d751713988987e9331980363e24189ce.dir
+      size: 0
+      nfiles: 0
+    - path: src/data/make_dataset.py
+      hash: md5
+      md5: 68248e5b9975eff5c54e9da3ff5bdf21
+      size: 4352
+    outs:
+    - path: data/03_primary
+      hash: md5
+      md5: c73eaf0a7e3527a75d3a2333e8ef8de8.dir
+      size: 14027
+      nfiles: 1
+  engineer_features:
+    cmd: venv/bin/python src/features/build_features.py --input data/03_primary 
+      --output data/04_features
+    deps:
+    - path: data/03_primary
+      hash: md5
+      md5: c73eaf0a7e3527a75d3a2333e8ef8de8.dir
+      size: 14027
+      nfiles: 1
+    - path: src/features/build_features.py
+      hash: md5
+      md5: c939cfcfecc68992d1a9216f90a13158
+      size: 5938
+    outs:
+    - path: data/04_features
+      hash: md5
+      md5: 28bc260a3e068b08b9908583d0c34de1.dir
+      size: 18393
+      nfiles: 3
+  train_model:
+    cmd: venv/bin/python src/models/train_model.py
+    deps:
+    - path: data/04_features
+      hash: md5
+      md5: 28bc260a3e068b08b9908583d0c34de1.dir
+      size: 18393
+      nfiles: 3
+    - path: src/models/train_model.py
+      hash: md5
+      md5: cf5ddbf5e6811785b875f3baeec9718b
+      size: 4365
+    params:
+      params.yaml:
+        models:
+          model_type: logistic_regression
+    outs:
+    - path: models/credit_risk_model_logistic_regression.pkl
+      hash: md5
+      md5: 5294c7dad987d14c39a8757bebdf9c85
+      size: 1007

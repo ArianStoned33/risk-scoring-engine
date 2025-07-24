@@ -1,0 +1,27 @@
+
+stages:
+  process_data:
+    cmd: venv/bin/python src/data/make_dataset.py --input data/01_raw --output data/03_primary
+    deps:
+      - src/data/make_dataset.py
+      - data/01_raw
+    outs:
+      - data/03_primary
+
+  engineer_features:
+    cmd: venv/bin/python src/features/build_features.py --input data/03_primary --output data/04_features
+    deps:
+      - src/features/build_features.py
+      - data/03_primary
+    outs:
+      - data/04_features
+
+  train_model:
+    cmd: venv/bin/python src/models/train_model.py
+    deps:
+      - src/models/train_model.py
+      - data/04_features
+    params:
+      - models
+    outs:
+      - models/credit_risk_model_logistic_regression.pkl
