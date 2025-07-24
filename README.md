@@ -52,8 +52,8 @@ La estructura del proyecto es modular y está diseñada para la escalabilidad y 
 
 1.  **Clonar el repositorio:**
     ```bash
-    git clone <URL-del-repositorio>
-    cd Task_master_test_Gemini_KiloK2
+    git clone <https://github.com/ArianStoned33/risk-scoring-engine.git>
+    cd risk-scoring-engine
     ```
 
 2.  **Crear un entorno virtual e instalar dependencias:**
